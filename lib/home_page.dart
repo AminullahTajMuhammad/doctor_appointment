@@ -1,3 +1,4 @@
+import 'package:doctor_appointment/item_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -249,7 +250,7 @@ class _HomePageState extends State<HomePage> {
         physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         children: [
-          doctorListTile("assets/dr_1.png", "Dr. Smith", "Surgeon", "4.7", "10.00 AM - 03.00 AM", true),
+          doctorListTile("assets/dr_1.png", "Dr. Smith", "Surgeon", "4.7", "10.00 AM - 03.00 AM", false),
           doctorListTile("assets/dr_2.png", "Dr. Steve Son", "Urologist", "4.5", "10.00 AM - 03.00 AM", false),
           doctorListTile("assets/dr_3.png", "Dr. Banner", "Dentists", "5.0", "10.00 AM - 03.00 AM", false),
           doctorListTile("assets/dr_4.png", "Dr. Clart Jon", "Surgeon", "4.1", "10.00 AM - 03.00 AM", false),
@@ -259,105 +260,110 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget doctorListTile(String img, String name, String specialist, String rating, String time, bool isSelected) {
-    return Container(
-      margin: const EdgeInsets.only(left: 20, top: 15, right: 20),
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: const Color(0xffE3E3E3),
-        ),
-        color: isSelected ? Constants.PRIMARY_COLOR : const Color(0xffFFFFFF),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: 70,
-            height: 70,
-            margin: const EdgeInsets.only(left: 5),
-            child: CircleAvatar(
-              backgroundImage: AssetImage(img),
-            ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ItemDetailsPage()));
+      },
+      child: Container(
+        margin: const EdgeInsets.only(left: 20, top: 15, right: 20),
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: const Color(0xffE3E3E3),
           ),
-          Container(
-            margin: const EdgeInsets.only(left: 10, right: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  child: Text(
-                    name,
-                    style: TextStyle(
-                        fontSize: 16.5,
-                        fontFamily: GoogleFonts.mulish().fontFamily,
-                        fontWeight: FontWeight.w600,
-                        color: isSelected ? Colors.white : Colors.black
+          color: isSelected ? Constants.PRIMARY_COLOR : const Color(0xffFFFFFF),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 70,
+              height: 70,
+              margin: const EdgeInsets.only(left: 5),
+              child: CircleAvatar(
+                backgroundImage: AssetImage(img),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 10, right: 10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    child: Text(
+                      name,
+                      style: TextStyle(
+                          fontSize: 16.5,
+                          fontFamily: GoogleFonts.mulish().fontFamily,
+                          fontWeight: FontWeight.w600,
+                          color: isSelected ? Colors.white : Colors.black
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 2),
-                  child: Text(
-                    specialist,
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontFamily: GoogleFonts.mulish().fontFamily,
-                        color: isSelected ? Colors.white : Colors.black
+                  Container(
+                    margin: const EdgeInsets.only(top: 2),
+                    child: Text(
+                      specialist,
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontFamily: GoogleFonts.mulish().fontFamily,
+                          color: isSelected ? Colors.white : Colors.black
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SvgPicture.asset("assets/ic_rating.svg", height: 16,),
-                      Container(
-                        margin: const EdgeInsets.only(left: 10),
-                        child: Text(
-                          rating,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: GoogleFonts.mulish().fontFamily,
-                            color: isSelected ? Colors.white : Colors.black
+                  Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SvgPicture.asset("assets/ic_rating.svg", height: 16,),
+                        Container(
+                          margin: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            rating,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: GoogleFonts.mulish().fontFamily,
+                              color: isSelected ? Colors.white : Colors.black
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 25),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SvgPicture.asset(
-                              "assets/ic_time.svg", height: 16,
-                              color: isSelected ? Colors.white : const Color(0xff436E8E),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(left: 5),
-                              child: Text(
-                                time,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontFamily: GoogleFonts.mulish().fontFamily,
-                                  color: isSelected ? Colors.white : Colors.black
-                                ),
+                        Container(
+                          margin: const EdgeInsets.only(left: 25),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SvgPicture.asset(
+                                "assets/ic_time.svg", height: 16,
+                                color: isSelected ? Colors.white : const Color(0xff436E8E),
                               ),
-                            )
-                          ],
+                              Container(
+                                margin: const EdgeInsets.only(left: 5),
+                                child: Text(
+                                  time,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontFamily: GoogleFonts.mulish().fontFamily,
+                                    color: isSelected ? Colors.white : Colors.black
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
